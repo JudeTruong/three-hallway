@@ -11,8 +11,8 @@ export class PlayerControls {
     /* ------------------
        JUMP / GRAVITY
     ------------------ */
-    this.gravity = 70;        // downward force
-    this.jumpForce = 50;      // jump strength
+    this.gravity = 50;        // downward force
+    this.jumpForce = 10;      // jump strength
     this.canJump = true;      // allow initial jump
     this.playerHeight = 1.6;  // eye height
 
@@ -35,7 +35,7 @@ export class PlayerControls {
       right: false,
     };
 
-    this.speed = 100; 
+    this.speed = 50; 
 
     /* ------------------
        INPUT
