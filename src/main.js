@@ -17,7 +17,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-camera.position.set(0, 1.6, 5);
+camera.position.set(0, 1000, 5);
 
 /* ================= AUDIO ================= */
 const listener = new THREE.AudioListener();
@@ -61,40 +61,57 @@ scene.add(sky.mesh);
 const frameData = [
   {
     texture: '/Textures/H1.jpg',
-    message:  `This is a much longer piece of dialogue.
-It can span multiple lines and the bubble
-will automatically resize itself to fit
-everything without clipping or overflow.`,
+    message:  `one of the first pictures we took together, I remeber how mysterious you were before I got to know you properly, I also remember how i flexed this picture to my roomates when i got home`,
     position: { x: -30, y: 1.8, z: -15 },
     size: { w: 4.5, h: 2.8 }
   },
   {
     texture: '/Textures/H2.jpg',
-    message: 'Late summer vibes ☀️',
-    position: { x: -22, y: 1.8, z: -14 },
-    size: { w: 3.8, h: 2.2 }
+    message: 'you look so good in this picture, I really do love your smile, I remember thinking how you always knew how to pose for the camera when we first met, you look so good in this picture',
+    position: { x: -22, y: 10, z: -14 },
+    size: { w: 3.8, h: 5 },
+    y: 3.2
   },
   {
-    texture: '/Textures/H1.jpg',
-    message: 'I like this one a lot',
-    position: { x: -14, y: 1.9, z: -15 },
-    size: { w: 5.2, h: 3 }
+    texture: '/Textures/H3.jpg',
+    message: 'So thoughtful, I cant remember a single person who did something like that for me in my life, how luck am I right!',
+    position: { x: -14, y: 100, z: -15 },
+    size: { w: 5.2, h: 7 },
+    y: 4
   },
   {
-    texture: '/Textures/H2.jpg',
-    message: 'Golden hour hits different',
+    texture: '/Textures/H4.jpg',
+    message: 'dont even remember the context for this one, I know we had a great time tho! I love walking with you',
     position: { x: -5, y: 1.7, z: -16 },
     size: { w: 3.5, h: 2 }
   },
   {
-    texture: '/Textures/H1.jpg',
-    message: 'Quiet moment 🌿',
+    texture: '/Textures/H6.jpg',
+    message: 'we could be walking through a factory hallway, I would still love going anywhere with you ',
     position: { x: 6, y: 1.8, z: -15 },
     size: { w: 4.8, h: 2.6 }
   },
   {
-    texture: '/Textures/H2.jpg',
-    message: 'End of the walk',
+    texture: '/Textures/H7.jpg',
+    message: 'such a fun trip we went on, good food, my favorite company (you) and nice scenery',
+    position: { x: 16, y: 1.9, z: -14 },
+    size: { w: 4, h: 2.4 }
+  },
+  {
+    texture: '/Textures/H8.jpg',
+    message: 'gosh you look good, how lucky am I to get sombody smart and hot at exactly the same time',
+    position: { x: 16, y: 1.9, z: -14 },
+    size: { w: 4, h: 2.4 }
+  },
+  {
+    texture: '/Textures/H9.jpg',
+    message: 'I love walking around with you, gives me a chance to flex for the ppl who cant have you, dont we look so cute together',
+    position: { x: 16, y: 1.9, z: -14 },
+    size: { w: 4, h: 2.4 }
+  },
+  {
+    texture: '/Textures/H10.jpg',
+    message: 'you inspire me to be a better person, I am so lucky to have you hazel',
     position: { x: 16, y: 1.9, z: -14 },
     size: { w: 4, h: 2.4 }
   }
@@ -109,7 +126,6 @@ const height = 1.8;    // frame height
 
 frameData.forEach((data, i) => {
   const angle = (i / frameData.length) * Math.PI * 2;
-
   const frame = new PictureFrame(
     data.texture,
     data.size.w,
@@ -117,9 +133,12 @@ frameData.forEach((data, i) => {
   );
 
   // Position in a circle around the camera
+  const baseHeight = 1.8;
+  const frameY = data.y ?? baseHeight;
+
   frame.group.position.set(
     Math.sin(angle) * radius,
-    height,
+    frameY,
     Math.cos(angle) * radius
   );
 
@@ -232,17 +251,11 @@ const clock = new THREE.Clock();
 function animate() {
   requestAnimationFrame(animate);
 
+
   player.update();
   sky.update(camera);
   sky.mesh.rotation.y += 0.0005;
 
-  // Flower sway
-  scene.traverse(obj => {
-    if (obj.userData.sway !== undefined) {
-      obj.rotation.z =
-        Math.sin(clock.elapsedTime + obj.userData.sway) * 0.03;
-    }
-  });
 
   // Bubble proximity
   const playerPos = camera.position;
