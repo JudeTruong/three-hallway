@@ -20,3 +20,9 @@ node_modules
 *.njsproj
 *.sln
 *.sw?
+
+
+public/Textures/*.jpg
+public/Textures/*.jpeg
+public/Textures/*.png
+public/Textures/*.webp
